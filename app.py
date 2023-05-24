@@ -1,19 +1,62 @@
-import streamlit as streamlit
+import streamlit as st
 
 import numpy as np 
 import pandas as pd
-import joblib 
+from io import StringIO
 
-model = joblib.load('xgbpipe.joblib')
+__version__ = "1.0"
+app_name = "SQL Migration Tool"
 
-st.title('Business Intelligence SQL Migration Automation Tool :report:')
-st.text_input('Enter sql file name', "Please enter your file name in format: FILE_NAME_DATE")
-st.select_slider('Choose base sql class',['Teradata','Oracle','DVT'])
-st.select_slider('Choose target sql class',['Snowflake','Oracle'])
-st.text_input('Enter sql file', "Please paste your base sql here")
+st.set_page_config(page_title="Reporting: SQL Migration Automation Tool", page_icon="📖", layout="wide")
+st.header("Reporting: SQL Migration Automation Tool 📖")
 
+base_file_name = st.text_input('Enter sql file name', "")
+
+uploaded_file = st.file_uploader("Choose your sql file")
+if uploaded_file is not None:
+    string_data = StringIO.read()
+    st.write(string_data)
+
+
+sql_class = ['Teradata','Oracle','Snowflake']
+
+def ui_spacer(n=2, line=False, next_n=0):
+	for _ in range(n):
+		st.write('')
+	if line:
+		st.tabs([' '])
+	for _ in range(next_n):
+		st.write('')
 
 def convert():
 	st.success('Conversion successful :thumbsup:')
 
-st.button('Convert', on_clock=convert)
+def ui_info():
+    st.markdown(f"""
+	SQL Migration Tool
+	version {__version__}
+	""")
+    ui_spacer(1)
+    st.markdown(f"""
+    Please select below configuration. 
+	""")
+
+def sql_base_class_config():
+    base_final = st.radio('Choose Base SQL Type', sql_class) 
+
+def sql_target_class_config():
+    target_final = st.radio('Choose Target SQL Type', sql_class)
+
+def credits():
+    ui_spacer(1)
+    st.write("Made by [Harsh Maan](https://www.linkedin.com/in/harsh-maan-6b5727178/).", unsafe_allow_html=True)
+
+with st.sidebar:
+    ui_info()
+    ui_spacer(1)
+    st.radio('Choose Base SQL Type', sql_class)
+    st.radio('Choose Target SQL Type', sql_class)
+    ui_spacer(2)
+    credits()
+
+st.button('Convert', on_click=convert)
