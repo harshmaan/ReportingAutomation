@@ -17,16 +17,12 @@ st.header("Reporting: SQL Migration Automation Tool 📖")
 names = ["Root","Harsh","Swapnil"]
 usernames = ["Admin","Harsh","Swapnil"]
 
-filename = Path(__file__).parent / "hashed_pw.pkl"
-hashed_passwords = pickle.load(open(filename,'rb'))
-#save the hashed_passwords in correct format
-credentials = {"usernames":{}}     
-for uname,name,pwd in zip(usernames,names,hashed_passwords):
-    user_dict = {"name": name, "password": pwd}
-    credentials["usernames"].update({uname: user_dict})
+file_path = Path(__file__).parent / "hashed_pw.pkl"
+with file_path.open("rb") as file:
+    hashed_passwords = pickle.load(file)
 
-authenticator = stauth.Authenticate(credentials, 
-                                    'dox_agent_cookie','auth',cookie_expiry_days=30)
+
+authenticator = stauth.Authenticate(names, usernames, hashed_passwords,'reporting_automation_tool','abcdef',cookie_expiry_days=30)
 
 name,authentication_status,username = authenticator.login("Login","main")
 
