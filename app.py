@@ -1,11 +1,11 @@
-pip install streamlit-authenticator
 import streamlit as st
 from pathlib import Path
 import numpy as np 
 import pandas as pd
 from io import StringIO
-import streamlit_authenticator as stauth
+
 import pickle
+import streamlit_authenticator as stauth
 
 __version__ = "1.0"
 app_name = "SQL Migration Tool"
