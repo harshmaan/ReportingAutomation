@@ -11,7 +11,7 @@ st.set_page_config(page_title="Reporting: SQL Migration Automation Tool", page_i
 st.header("Reporting: SQL Migration Automation Tool 📖")
 
 if "count" not in st.session_state:
-      st.session_state.count.count = 0
+      st.session_state.count = 0
 
 base_file_name = st.text_input('Enter sql file name', "")
 
