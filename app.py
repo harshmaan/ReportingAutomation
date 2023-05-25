@@ -10,6 +10,9 @@ app_name = "SQL Migration Tool"
 st.set_page_config(page_title="Reporting: SQL Migration Automation Tool", page_icon="📖", layout="wide")
 st.header("Reporting: SQL Migration Automation Tool 📖")
 
+if 'count' not in st.session_state:
+      st.session_state.count.count = 0
+
 base_file_name = st.text_input('Enter sql file name', "")
 
 uploaded_file = st.file_uploader("Choose your sql file")
@@ -30,6 +33,8 @@ def ui_spacer(n=2, line=False, next_n=0):
 
 def convert():
 	st.success('Conversion successful :thumbsup:')
+        
+
 
 def ui_info():
     st.markdown(f"""
@@ -51,6 +56,9 @@ def credits():
     ui_spacer(1)
     st.write("Made by [Harsh Maan](https://www.linkedin.com/in/harsh-maan-6b5727178/).", unsafe_allow_html=True)
 
+def like_counter():
+      st.session_state.count += 1
+
 with st.sidebar:
     ui_info()
     ui_spacer(1)
@@ -60,3 +68,9 @@ with st.sidebar:
     credits()
 
 st.button('Convert', on_click=convert)
+
+
+
+st.button('Like', on_click=like_counter)
+
+st.write('Total Portfolio likes: ', st.session_state.count)
