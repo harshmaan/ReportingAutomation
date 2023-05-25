@@ -1,3 +1,4 @@
+pip install streamlit-authenticator
 import streamlit as st
 from pathlib import Path
 import numpy as np 
